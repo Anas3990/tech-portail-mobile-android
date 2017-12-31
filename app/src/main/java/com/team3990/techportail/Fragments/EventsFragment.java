@@ -1,30 +1,20 @@
 package com.team3990.techportail.Fragments;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.team3990.techportail.Adapters.EventsListAdapter;
-import com.team3990.techportail.Models.NewObject;
 import com.team3990.techportail.R;
-
-import java.util.ArrayList;
-import java.util.EventObject;
-import java.util.List;
-
-import butterknife.BindView;
 
 /**
  * Created by Anas Merbouh on 17-12-30.
@@ -34,13 +24,11 @@ public class EventsFragment extends Fragment implements EventsListAdapter.OnEven
 
     // Déclaration des éléments de l'interface du Fragment
     private RecyclerView mEventsRecycler;
+    private EventsListAdapter mAdapter;
 
     // Firestore
     private FirebaseFirestore mFirestore;
     private Query mQuery;
-
-    //
-    private EventsListAdapter mAdapter;
 
 
     @Override
@@ -56,11 +44,10 @@ public class EventsFragment extends Fragment implements EventsListAdapter.OnEven
         //
         View view = inflater.inflate(R.layout.fragment_events, null);
 
-        //
+        // Initialisation du Recyler View des évènements
         mEventsRecycler = (RecyclerView) view.findViewById(R.id.events_list);
 
         //
-        initFirestore();
         initRecyclerView();
 
         //
@@ -70,7 +57,9 @@ public class EventsFragment extends Fragment implements EventsListAdapter.OnEven
     private void initFirestore() {
         mFirestore = FirebaseFirestore.getInstance();
 
-        // Query les évènements
+        // TODO: 17-12-31  Ajouter un filtre pour récupérer les évènements selon la date
+
+        // Query des évènements
         mQuery = mFirestore.collection("events");
     }
 

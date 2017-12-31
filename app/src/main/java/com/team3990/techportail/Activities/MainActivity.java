@@ -2,9 +2,7 @@ package com.team3990.techportail.Activities;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -18,8 +16,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.team3990.techportail.Fragments.DashboardFragment;
 import com.team3990.techportail.Fragments.EventsFragment;
@@ -64,8 +60,9 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        // Éviter que l'utilisateur soit changé de page lorsqu'il fait une rotation de l'écran
         if (null == savedInstanceState) {
-            //
+            // Établir la page affichée par défaut
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -79,7 +76,7 @@ public class MainActivity extends AppCompatActivity
     public void onStart() {
         super.onStart();
 
-        //
+        // Appeler la méthode qui vérifie si un utilisateur est déjà connecté, si non, démarrer la méthode qui lui permet de se connecter
         if (shouldStartSignIn()) {
             startSignIn();
             return;
@@ -98,10 +95,12 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    // Méthode qui vérifie si un utilisateur est déjà connecté
     private boolean shouldStartSignIn() {
         return (!mViewModel.getIsSigningIn() && FirebaseAuth.getInstance().getCurrentUser() == null);
     }
 
+    // Méthode qui permet à un utilisateur de se connecter avec la librairie AuthUI
     private void startSignIn() {
         // Se connnecter avec AuthUI
         Intent intent = AuthUI.getInstance().createSignInIntentBuilder()
@@ -137,7 +136,7 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        // Déconnecter l'utilisateur et lui montrer l'écran de connexion
         if (id == R.id.action_disconnect) {
             AuthUI.getInstance().signOut(this);
             startSignIn();

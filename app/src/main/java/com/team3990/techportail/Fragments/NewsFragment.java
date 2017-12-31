@@ -25,14 +25,12 @@ public class NewsFragment extends Fragment implements NewsListAdapter.OnNewSelec
 
     // Déclaration des éléments de l'interface du Fragment
     private RecyclerView mNewsRecycler;
+    private NewsListAdapter mAdapter;
 
     // Firestore
     private FirebaseFirestore mFirestore;
     private Query mQuery;
-
-    //
-    private NewsListAdapter mAdapter;
-
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +44,7 @@ public class NewsFragment extends Fragment implements NewsListAdapter.OnNewSelec
         //
         View view = inflater.inflate(R.layout.fragment_news, null);
 
-        //
+        // Associer le Recycler View à l'interface appropriée
         mNewsRecycler = (RecyclerView) view.findViewById(R.id.news_list);
 
         //
@@ -58,7 +56,7 @@ public class NewsFragment extends Fragment implements NewsListAdapter.OnNewSelec
     private void initFirestore() {
         mFirestore = FirebaseFirestore.getInstance();
 
-        // Query les nouvelles
+        // Query des nouvelles selon leur date de création
         mQuery = mFirestore.collection("news").orderBy("timestamp", Query.Direction.DESCENDING);
     }
 

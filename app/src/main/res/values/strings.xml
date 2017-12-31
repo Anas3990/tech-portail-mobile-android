@@ -4,16 +4,19 @@
     <!-- -->
     <string name="title_activity_main">Tech Portail</string>
 
+
+    <!-- Titre des éléments du Navigation Drawer -->
     <string name="nav_dashboard">Accueil</string>
     <string name="nav_news">Nouvelles</string>
     <string name="nav_my_attendances">Mes présences</string>
     <string name="nav_events">Calendrier</string>
     <string name="nav_team">Équipe</string>
+    <string name="nav_settings">Paramètres</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Paramètres</string>
+    <!-- -->
     <string name="action_disconnect">Se déconnecter</string>
 
     <!-- Traductions pour AuthUI -->
@@ -51,4 +54,7 @@
     <string name="fui_confirm_recovery_body" translation_description="Alert dialog displayed after password recovery email is sent">Veuillez suivre les instructions envoyées à %1$s afin de récupérer votre mot de passe.</string>
     <string name="fui_progress_dialog_sending" translation_description="Progress dialog while password recovery email is being sent">Envoie du courriel en cours …</string>
     <string name="fui_error_email_does_not_exist" translation_description="Inline error when user attempt signin with invalid account">Ce courriel ne semble pas exister dans notre base de données. Êtes-vous sûrs que vous possédez un compte ?</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

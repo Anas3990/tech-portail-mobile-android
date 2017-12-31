@@ -40,11 +40,11 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder> exten
 
     protected void onDocumentModified(DocumentChange change) {
         if (change.getOldIndex() == change.getNewIndex()) {
-            // Item changed but remained in same position
+            // Action à effectuer si un item a été changé, mais garde la même position
             mSnapshots.set(change.getOldIndex(), change.getDocument());
             notifyItemChanged(change.getOldIndex());
         } else {
-            // Item changed and changed position
+            // Action à effectuer si un item a été changé et change de position
             mSnapshots.remove(change.getOldIndex());
             mSnapshots.add(change.getNewIndex(), change.getDocument());
             notifyItemMoved(change.getOldIndex(), change.getNewIndex());
@@ -60,15 +60,15 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder> exten
     public void onEvent(QuerySnapshot documentSnapshots,
                         FirebaseFirestoreException e) {
 
-        // Handle errors
+        // Gestion des erreurs
         if (e != null) {
             Log.w(TAG, "onEvent:error", e);
             return;
         }
 
-        // Dispatch the event
+        // Dispatch l'évènement
         for (DocumentChange change : documentSnapshots.getDocumentChanges()) {
-            // Snapshot of the changed document
+            // Faire un Snapshot des éléments qui ont changés dans le document
             DocumentSnapshot snapshot = change.getDocument();
 
             switch (change.getType()) {
@@ -104,14 +104,14 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder> exten
     }
 
     public void setQuery(Query query) {
-        // Stop listening
+        // Enlever le listener
         stopListening();
 
-        // Clear existinkodig data
+        // Effacer les données existantes
         mSnapshots.clear();
         notifyDataSetChanged();
 
-        // Listen to new query
+        // Démarrer un listener sur le nouveau query
         mQuery = query;
         startListening();
     }
