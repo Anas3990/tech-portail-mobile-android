@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_dashboard"
+            android:icon="@drawable/ic_menu_home_black"
+            android:checked="true"
+            android:title="@string/nav_dashboard" />
+        <item
+            android:id="@+id/nav_news"
+            android:icon="@drawable/ic_menu_notifications_black"
+            android:title="@string/nav_news" />
+        <item
+            android:id="@+id/nav_my_attendances"
+            android:icon="@drawable/ic_menu_event_available_black"
+            android:title="@string/nav_my_attendances" />
+        <item
+            android:id="@+id/nav_events"
+            android:icon="@drawable/ic_menu_event_black"
+            android:title="@string/nav_events" />
+        <item
+            android:id="@+id/nav_team"
+            android:icon="@drawable/ic_menu_group_black"
+            android:title="@string/nav_team" />
+    </group>
+</menu>

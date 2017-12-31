@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">Tech Portail</string>
+
+    <!-- -->
+    <string name="title_activity_main">Tech Portail</string>
+
+    <string name="nav_dashboard">Accueil</string>
+    <string name="nav_news">Nouvelles</string>
+    <string name="nav_my_attendances">Mes présences</string>
+    <string name="nav_events">Calendrier</string>
+    <string name="nav_team">Équipe</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Paramètres</string>
+    <string name="action_disconnect">Se déconnecter</string>
+
+    <!-- Traductions pour AuthUI -->
+    <string name="fui_default_toolbar_title" translatable="false">@string/app_name</string>
+    <string name="fui_progress_dialog_loading" translation_description="Loading text in dialog">Chargment en cours …</string>
+    <string name="fui_sign_in_default" translation_description="Button text to sign in">Se connecter</string>
+    <string name="fui_general_error" translation_description="Toast text flashing general error">Une erreur est survenue.</string>
+
+    <!-- Email common-->
+    <string name="fui_next_default" translation_description="Button text to continue">Continuer</string>
+    <string name="fui_email_hint" translation_description="Hint in email input field">Courriel</string>
+    <string name="fui_password_hint" translation_description="Hint for password input field">Mot de passe</string>
+    <string name="fui_required_field" translation_description="Inline error for required field">Ce champs est obligatoire.</string>
+    <string name="fui_invalid_email_address" translation_description="Inline error for invalid email address">Ce courriel est invalide</string>
+    <string name="fui_missing_email_address" translation_description="Inline error for empty email address in input field">Veuillez entrer votre courriel pour continuer</string>
+    <string name="fui_progress_dialog_checking_accounts" translation_description="Progress dialog text while checking for existing accounts">Vérification des comptes existants …</string>
+
+    <!-- Idp/Email welcome back -->
+    <string name="fui_title_welcome_back_idp_prompt" translatable="false">@string/fui_sign_in_default</string>
+    <string name="fui_title_welcome_back_password_prompt" translatable="false">@string/fui_sign_in_default</string>
+    <string name="fui_welcome_back_idp_header" translation_description="Inline subtitle to users whose signup was interrupted since an existing account was detected">Vous possédez déjà un compte</string>
+    <string name="fui_welcome_back_email_header" translation_description="Message for returning users">Bienvenue de retour !</string>
+    <string name="fui_welcome_back_password_prompt_body" translation_description="Message to users that need to signin using existing email accounts">
+        Vous avez déjà utilisé %1$s
+        pour vous connecter. Veuillez entrer votre mot de passe pour continuer.
+    </string>
+    <string name="fui_progress_dialog_signing_in" translation_description="Progress dialog text">Connexion en cours …</string>
+    <string name="fui_trouble_signing_in" translation_description="Link leading to forgot password flow">Mot de passe oublié ?</string>
+
+    <!-- Password recovery -->
+    <string name="fui_title_recover_password_activity" translation_description="Recover password screen title">Récupérer mon mot de passe</string>
+    <string name="fui_title_confirm_recover_password" translation_description="Password recovery confirmation message">Courriel envoyé.</string>
+    <string name="fui_password_recovery_body" translation_description="Password recovery message body">Veuillez indiquer votre courriel enregistré à votre compte sur Tech Portail. Un courriel vous sera ensuite envoyé avec les instructions pour réinitialiser votre mot de passe.</string>
+    <string name="fui_button_text_send" translation_description="Button text to send recovery email">Envoyer</string>
+    <string name="fui_confirm_recovery_body" translation_description="Alert dialog displayed after password recovery email is sent">Veuillez suivre les instructions envoyées à %1$s afin de récupérer votre mot de passe.</string>
+    <string name="fui_progress_dialog_sending" translation_description="Progress dialog while password recovery email is being sent">Envoie du courriel en cours …</string>
+    <string name="fui_error_email_does_not_exist" translation_description="Inline error when user attempt signin with invalid account">Ce courriel ne semble pas exister dans notre base de données. Êtes-vous sûrs que vous possédez un compte ?</string>
+</resources>
