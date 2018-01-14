@@ -16,10 +16,6 @@
             android:icon="@drawable/ic_menu_notifications_black"
             android:title="@string/nav_news" />
         <item
-            android:id="@+id/nav_my_attendances"
-            android:icon="@drawable/ic_menu_event_available_black"
-            android:title="@string/nav_my_attendances" />
-        <item
             android:id="@+id/nav_events"
             android:icon="@drawable/ic_menu_event_black"
             android:title="@string/nav_events" />

@@ -1,8 +1,13 @@
 package com.team3990.techportail.Activities;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -14,10 +19,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
-import com.team3990.techportail.Fragments.DashboardFragment;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.team3990.techportail.Fragments.EventsFragment;
 import com.team3990.techportail.Fragments.MyAttendancesFragment;
 import com.team3990.techportail.Fragments.NewsFragment;
@@ -51,14 +57,37 @@ public class MainActivity extends AppCompatActivity
         // View model
         mViewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
 
+        //
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+
+        //
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        //
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            // Create channel to show notifications.
+            String channelId  = getString(R.string.default_notification_channel_id);
+            String channelName = getString(R.string.default_notification_channel_name);
+            NotificationManager notificationManager =
+                    getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(new NotificationChannel(channelId,
+                    channelName, NotificationManager.IMPORTANCE_LOW));
+        }
 
         // Éviter que l'utilisateur soit changé de page lorsqu'il fait une rotation de l'écran
         if (null == savedInstanceState) {
@@ -66,7 +95,7 @@ public class MainActivity extends AppCompatActivity
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-            fragmentTransaction.replace(R.id.content_container, new DashboardFragment());
+            fragmentTransaction.replace(R.id.content_container, new MyAttendancesFragment());
 
             fragmentTransaction.commit();
         }
@@ -76,7 +105,7 @@ public class MainActivity extends AppCompatActivity
     public void onStart() {
         super.onStart();
 
-        // Appeler la méthode qui vérifie si un utilisateur est déjà connecté, si non, démarrer la méthode qui lui permet de se connecter
+        // Appeler la méthode qui vérifie si un utilisateur est déjà connecté, et s'il ne l'est pas, démarrer la méthode qui lui permet de se connecter
         if (shouldStartSignIn()) {
             startSignIn();
             return;
@@ -105,7 +134,8 @@ public class MainActivity extends AppCompatActivity
         // Se connnecter avec AuthUI
         Intent intent = AuthUI.getInstance().createSignInIntentBuilder()
                 .setAvailableProviders(providers)
-                .setIsSmartLockEnabled(false)
+                .setIsSmartLockEnabled(true)
+                .setAllowNewEmailAccounts(false)
                 .build();
 
         startActivityForResult(intent, RC_SIGN_IN);
@@ -139,6 +169,11 @@ public class MainActivity extends AppCompatActivity
         // Déconnecter l'utilisateur et lui montrer l'écran de connexion
         if (id == R.id.action_disconnect) {
             AuthUI.getInstance().signOut(this);
+
+            // Enlever l'utilisateur du topic Team Members afin qu'il ne puisse plus recevoir de notifications
+            FirebaseMessaging.getInstance().unsubscribeFromTopic("team_members");
+
+            // Démarrer la méthode qui permet à l'utilisateur de se connecter
             startSignIn();
         }
 
@@ -154,11 +189,9 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_dashboard) {
-            fragment = new DashboardFragment();
+            fragment = new MyAttendancesFragment();
         } else if (id == R.id.nav_news) {
             fragment = new NewsFragment();
-        } else if (id == R.id.nav_my_attendances) {
-            fragment = new MyAttendancesFragment();
         } else if (id == R.id.nav_events) {
             fragment = new EventsFragment();
         } else if (id == R.id.nav_team) {

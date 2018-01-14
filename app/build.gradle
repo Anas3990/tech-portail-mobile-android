@@ -36,15 +36,27 @@ dependencies {
     implementation "android.arch.lifecycle:extensions:1.0.0"
     annotationProcessor "android.arch.lifecycle:compiler:1.0.0"
 
-    //
+    // Libraires de Firebase
     implementation 'com.google.firebase:firebase-core:11.8.0'
 
     implementation 'com.google.firebase:firebase-firestore:11.8.0'
+    // Permet d'intéragir avec la base de données
+    implementation 'com.google.firebase:firebase-messaging:11.8.0'
+    // Permet de recevoir des Push Notifications
 
     implementation 'com.google.android.gms:play-services-auth:11.8.0'
     implementation 'com.google.firebase:firebase-auth:11.8.0'
     implementation 'com.firebaseui:firebase-ui-auth:3.1.0'
 }
+
+
+
+
+
+
+
+
+
 
 
 

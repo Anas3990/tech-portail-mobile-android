@@ -79,7 +79,7 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder> exten
                     onDocumentModified(change);
                     break;
                 case REMOVED:
-                    onDocumentModified(change);
+                    onDocumentRemoved(change);
                     break;
             }
         }

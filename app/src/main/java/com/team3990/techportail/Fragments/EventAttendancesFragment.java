@@ -1,10 +1,7 @@
 package com.team3990.techportail.Fragments;
 
-import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,21 +11,19 @@ import android.view.ViewGroup;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.team3990.techportail.Activities.NewDetailActivity;
-import com.team3990.techportail.Adapters.NewsListAdapter;
+import com.team3990.techportail.Activities.EventDetailActivity;
+import com.team3990.techportail.Adapters.EventAttendancesListAdapter;
 import com.team3990.techportail.R;
 
-import butterknife.BindView;
-
 /**
- * Created by Anas Merbouh on 17-12-30.
+ * Created by Anas Merbouh on 17-12-31.
  */
 
-public class NewsFragment extends Fragment implements NewsListAdapter.OnNewSelectedListener {
+public class EventAttendancesFragment extends Fragment implements EventAttendancesListAdapter.OnEventAttendanceSelectedListener {
 
     // Déclaration des éléments de l'interface du Fragment
-    private RecyclerView mNewsRecycler;
-    private NewsListAdapter mAdapter;
+    private RecyclerView mEventAttendancesRecycler;
+    private EventAttendancesListAdapter mAdapter;
 
     // Firestore
     private FirebaseFirestore mFirestore;
@@ -45,22 +40,23 @@ public class NewsFragment extends Fragment implements NewsListAdapter.OnNewSelec
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //
-        View view = inflater.inflate(R.layout.fragment_news, null);
+        View view = inflater.inflate(R.layout.fragment_event_attendances, null);
 
-        // Associer le Recycler View à l'interface appropriée
-        mNewsRecycler = (RecyclerView) view.findViewById(R.id.news_list);
+        // Initialisation du Recyler View des présences de l'évènement
+        mEventAttendancesRecycler = (RecyclerView) view.findViewById(R.id.event_attendances_list);
 
         //
         initRecyclerView();
 
+        //
         return view;
     }
 
     private void initFirestore() {
         mFirestore = FirebaseFirestore.getInstance();
 
-        // Query des nouvelles selon leur date de création
-        mQuery = mFirestore.collection("news").orderBy("timestamp", Query.Direction.DESCENDING);
+        // Query des présences de l'évènement
+        mQuery = mFirestore.collection("events").document(EventDetailActivity.KEY_EVENT_ID).collection("attendances");
     }
 
     private  void initRecyclerView() {
@@ -68,24 +64,20 @@ public class NewsFragment extends Fragment implements NewsListAdapter.OnNewSelec
 
         }
 
-        mAdapter = new NewsListAdapter(mQuery, this) {
+        mAdapter = new EventAttendancesListAdapter(mQuery, this) {
 
             @Override
             protected  void onDataChanged() {
                 if (getItemCount() == 0) {
-                    mNewsRecycler.setVisibility(View.GONE);
+                    mEventAttendancesRecycler.setVisibility(View.GONE);
                 } else {
-                    mNewsRecycler.setVisibility(View.VISIBLE);
+                    mEventAttendancesRecycler.setVisibility(View.VISIBLE);
                 }
             }
         };
 
-        mNewsRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mNewsRecycler.setAdapter(mAdapter);
-
-        //
-        DividerItemDecoration mDividerItemDecoration = new DividerItemDecoration(mNewsRecycler.getContext(), DividerItemDecoration.VERTICAL);
-        mNewsRecycler.addItemDecoration(mDividerItemDecoration);
+        mEventAttendancesRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mEventAttendancesRecycler.setAdapter(mAdapter);
     }
 
     @Override
@@ -107,10 +99,7 @@ public class NewsFragment extends Fragment implements NewsListAdapter.OnNewSelec
     }
 
     @Override
-    public void onNewSelected(DocumentSnapshot _new) {
-        Intent intent = new Intent(getActivity(), NewDetailActivity.class);
-        intent.putExtra(NewDetailActivity.KEY_NEW_ID, _new.getId());
+    public void onEventAttendanceSelected(DocumentSnapshot attendance) {
 
-        startActivity(intent);
     }
 }

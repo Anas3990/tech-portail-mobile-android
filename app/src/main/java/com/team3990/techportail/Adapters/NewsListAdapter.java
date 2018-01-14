@@ -12,6 +12,8 @@ import com.team3990.techportail.Models.NewObject;
 import com.team3990.techportail.R;
 
 
+import java.text.SimpleDateFormat;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -48,6 +50,9 @@ public class NewsListAdapter extends FirestoreAdapter<NewsListAdapter.ViewHolder
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         //
+        @BindView(R.id.new_creation_date)
+        TextView creationDateView;
+
         @BindView(R.id.new_title)
         TextView titleView;
 
@@ -63,6 +68,14 @@ public class NewsListAdapter extends FirestoreAdapter<NewsListAdapter.ViewHolder
         public void bind(final DocumentSnapshot snapshot, final  OnNewSelectedListener listener) {
             NewObject _new = snapshot.toObject(NewObject.class);
 
+            //
+            SimpleDateFormat dateOnly = new SimpleDateFormat("EEEE d MMMM yyyy");
+
+            //
+            String _newCreationDate = dateOnly.format(_new.getTimestamp());
+
+            //
+            creationDateView.setText("Le " + _newCreationDate);
             titleView.setText(_new.getTitle());
             bodyView.setText(_new.getBody());
 

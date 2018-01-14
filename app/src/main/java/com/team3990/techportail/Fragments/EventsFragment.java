@@ -1,9 +1,10 @@
 package com.team3990.techportail.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,8 +14,11 @@ import android.view.ViewGroup;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.team3990.techportail.Activities.EventDetailActivity;
 import com.team3990.techportail.Adapters.EventsListAdapter;
 import com.team3990.techportail.R;
+
+import butterknife.BindView;
 
 /**
  * Created by Anas Merbouh on 17-12-30.
@@ -29,7 +33,6 @@ public class EventsFragment extends Fragment implements EventsListAdapter.OnEven
     // Firestore
     private FirebaseFirestore mFirestore;
     private Query mQuery;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -83,6 +86,9 @@ public class EventsFragment extends Fragment implements EventsListAdapter.OnEven
 
         mEventsRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         mEventsRecycler.setAdapter(mAdapter);
+
+        DividerItemDecoration mDividerItemDecoration = new DividerItemDecoration(mEventsRecycler.getContext(), DividerItemDecoration.VERTICAL);
+        mEventsRecycler.addItemDecoration(mDividerItemDecoration);
     }
 
     @Override
@@ -105,6 +111,9 @@ public class EventsFragment extends Fragment implements EventsListAdapter.OnEven
 
     @Override
     public void onEventSelected(DocumentSnapshot event) {
+        Intent intent = new Intent(getActivity(), EventDetailActivity.class);
+        intent.putExtra(EventDetailActivity.KEY_EVENT_ID, event.getId());
 
+        startActivity(intent);
     }
 }

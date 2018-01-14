@@ -1,38 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:padding="16dp"
     android:background="?android:attr/selectableItemBackground">
 
     <TextView
-        android:id="@+id/event_schedule"
+        android:id="@+id/event_attendant_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/black"
-        android:textSize="14sp"
-        tools:text="Schedule"/>
-
-    <TextView
-        android:id="@+id/event_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:ellipsize="end"
         android:maxLines="1"
         android:textColor="#F0AD4E"
         android:textSize="16sp"
-        tools:text="Title"/>
+        tools:text="Attendant full name" />
 
     <TextView
-        android:id="@+id/event_body"
+        android:id="@+id/event_attendance_schedule"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/event_attendant_name"
         android:ellipsize="end"
         android:singleLine="true"
         android:textColor="@android:color/black"
         android:textSize="14sp"
-        tools:text="Body"/>
-
-</LinearLayout>
+        tools:text="Attendance schedule" />
+</RelativeLayout>

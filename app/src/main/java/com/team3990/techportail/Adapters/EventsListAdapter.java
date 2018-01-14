@@ -11,6 +11,8 @@ import com.google.firebase.firestore.Query;
 import com.team3990.techportail.Models.EventObject;
 import com.team3990.techportail.R;
 
+import java.text.SimpleDateFormat;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -26,6 +28,7 @@ public class EventsListAdapter extends FirestoreAdapter<EventsListAdapter.ViewHo
         void onEventSelected(DocumentSnapshot event);
     }
 
+    //
     private OnEventSelectedListener mListener;
 
     public EventsListAdapter(Query query, OnEventSelectedListener listener) {
@@ -47,6 +50,9 @@ public class EventsListAdapter extends FirestoreAdapter<EventsListAdapter.ViewHo
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         //
+        @BindView(R.id.event_schedule)
+        TextView scheduleView;
+
         @BindView(R.id.event_title)
         TextView titleView;
 
@@ -61,6 +67,18 @@ public class EventsListAdapter extends FirestoreAdapter<EventsListAdapter.ViewHo
         public void bind(final DocumentSnapshot snapshot, final  OnEventSelectedListener listener) {
             EventObject event = snapshot.toObject(EventObject.class);
 
+            //
+            SimpleDateFormat dateOnly = new SimpleDateFormat("EEEE d MMMM");
+            SimpleDateFormat timeOnly =  new SimpleDateFormat("HH:mm");
+
+            //
+            String eventStartDate = dateOnly.format(event.getStartDate());
+
+            String eventStartTime= timeOnly.format(event.getStartDate());
+            String eventEndTime = timeOnly.format(event.getEndDate());
+
+            //
+            scheduleView.setText("Le " + eventStartDate + " , de " + eventStartTime + " à " + eventEndTime);
             titleView.setText(event.getTitle());
             bodyView.setText(event.getBody());
 
